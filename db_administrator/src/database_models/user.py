@@ -1,15 +1,12 @@
-import sqlalchemy
 from sqlalchemy import Column, Integer, String, Table, DateTime
 
-from .postgres_base import Base
+from src.database_models.base import Base
 
-metadata = sqlalchemy.MetaData()
-
-users = Table(
+user = Table(
     'users',
     Base.metadata,
     Column("id", Integer, autoincrement=True, primary_key=True),
-    Column("username", String, nullable=False),
+    Column("username", String, nullable=False, unique=True),
     Column("full_name", String, nullable=False),
     Column("password", String, nullable=False),
     Column("email", String, nullable=False),

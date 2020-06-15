@@ -1,8 +1,29 @@
 import uvicorn
-from base import app
-from models.postgres_management import database, create_metadata
-SERVER_HOST = "127.0.0.1"
-SERVER_PORT = 5000
+from settings import database
+from settings import create_metadata
+from settings import app
+from settings import SERVER_HOST, SERVER_PORT
+from src.endpoints import authorization
+from src.endpoints import users
+from src.endpoints import profiles
+from src.endpoints import devices
+from src.endpoints import device_types
+from src.endpoints import groups
+from src.endpoints import delegations
+from src.endpoints import device_groups
+from src.endpoints import respnsibilities
+from src.exceptions.handlers import request_validation
+
+
+app.include_router(authorization.router)
+app.include_router(users.router)
+app.include_router(profiles.router)
+app.include_router(devices.router)
+app.include_router(device_types.router)
+app.include_router(groups.router)
+app.include_router(delegations.router)
+app.include_router(device_groups.router)
+app.include_router(respnsibilities.router)
 
 
 @app.on_event("startup")

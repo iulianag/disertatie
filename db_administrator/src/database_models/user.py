@@ -9,7 +9,7 @@ user = Table(
     Column("username", String, nullable=False, unique=True),
     Column("full_name", String, nullable=False),
     Column("password", String, nullable=False),
-    Column("email", String, nullable=False),
+    Column("email", String, nullable=False, unique=True),
     Column("session_token", String, nullable=True),
     Column("login_date", DateTime, nullable=True)
 )

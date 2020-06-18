@@ -9,7 +9,7 @@ from src.validation_models.base_validation_model import InfoModel, BaseResponseM
 class BaseManager(object):
     @classmethod
     async def create_record(cls, table, schema):
-        query = table.insert().values(**schema.dict)
+        query = table.insert().values(**schema.dict())
         record_id = await database.execute(query)
         return {
             'id': record_id,
@@ -57,10 +57,7 @@ class BaseManager(object):
             )
         update_query = table.update().where(table.c.id == record_id).values(**schema.dict())
         await database.execute(update_query)
-        return {
-            'id': record_id,
-            **schema.dict()
-        }
+        return await database.fetch_one(query)
 
     @classmethod
     async def delete_record(cls, table, record_id):

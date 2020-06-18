@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, status, Query
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 
-from src.dependencies.authorization import is_authenticated
+from src.dependencies.user_permission import have_permission
 from src.db_data_management.users_management import UsersTableManager
 from src.utils.user_utils import get_user_details, get_users_list
 from src.database_models.user import user
@@ -14,8 +14,9 @@ router = APIRouter()
 
 
 @router.get("/users",
-            tags=["Users"])
-async def get_users(query: str = Query(None), user_id=Depends(is_authenticated)):
+            tags=["Users"],
+            dependencies=[Depends(have_permission)])
+async def get_users(query: str = Query(None)):
     try:
         return JSONResponse(
             status_code=status.HTTP_200_OK,
@@ -27,8 +28,10 @@ async def get_users(query: str = Query(None), user_id=Depends(is_authenticated))
         raise_exception(e)
 
 
-@router.post("/users", tags=["Users"])
-async def post_user(item: UserIn, user_id=Depends(is_authenticated)):
+@router.post("/users",
+             tags=["Users"],
+             dependencies=[Depends(have_permission)])
+async def post_user(item: UserIn):
     try:
         return JSONResponse(
             status_code=status.HTTP_201_CREATED,
@@ -40,8 +43,10 @@ async def post_user(item: UserIn, user_id=Depends(is_authenticated)):
         raise_exception(e)
 
 
-@router.get("/users/{id}", tags=["Users"])
-async def get_user(id: int, user_id=Depends(is_authenticated)):
+@router.get("/users/{id}",
+            tags=["Users"],
+            dependencies=[Depends(have_permission)])
+async def get_user(id: int):
     try:
         return JSONResponse(
             status_code=status.HTTP_200_OK,
@@ -53,8 +58,10 @@ async def get_user(id: int, user_id=Depends(is_authenticated)):
         raise_exception(e)
 
 
-@router.delete("/users/{id}", tags=["Users"])
-async def delete_user(id: int, user_id=Depends(is_authenticated)):
+@router.delete("/users/{id}",
+               tags=["Users"],
+               dependencies=[Depends(have_permission)])
+async def delete_user(id: int):
     try:
         await UsersTableManager.delete_record(user, id)
         return JSONResponse(
@@ -71,8 +78,10 @@ async def delete_user(id: int, user_id=Depends(is_authenticated)):
         raise_exception(e)
 
 
-@router.put("/users/{id}", tags=["Users"])
-async def put_user(id: int, item: BaseUserIn, user_id=Depends(is_authenticated)):
+@router.put("/users/{id}",
+            tags=["Users"],
+            dependencies=[Depends(have_permission)])
+async def put_user(id: int, item: BaseUserIn):
     try:
         return JSONResponse(
             status_code=status.HTTP_200_OK,

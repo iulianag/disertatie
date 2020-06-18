@@ -13,9 +13,9 @@ from src.database_models.profile import profile
 from src.database_models.user import user
 
 
-class ResponsibilitiesTableManager(BaseManager):
+class DelegationsTableManager(BaseManager):
     @classmethod
-    async def delete_responsibility(cls, profile_id, user_id):
+    async def delete_delegation(cls, profile_id, user_id):
         query = delegation.select().where(and_(delegation.c.profile_id == profile_id,
                                                delegation.c.user_id == user_id))
         record = await database.execute(query)

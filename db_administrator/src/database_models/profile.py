@@ -9,6 +9,6 @@ profile = Table(
     'profiles',
     Base.metadata,
     Column("id", Integer, autoincrement=True, primary_key=True),
-    Column("name", String, nullable=False, unique=True),
+    Column("profilename", String, nullable=False, unique=True),
     Column("description", String, nullable=False)
 )

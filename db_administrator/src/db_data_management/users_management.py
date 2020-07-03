@@ -1,4 +1,3 @@
-from sqlalchemy import select
 from sqlalchemy import and_, or_
 import datetime
 

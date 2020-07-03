@@ -13,7 +13,7 @@ device = Table(
     'devices',
     Base.metadata,
     Column("id", Integer, autoincrement=True, primary_key=True),
-    Column("devicename", String, nullable=False, unique=True),
+    Column("name", String, nullable=False, unique=True),
     Column("description", String, nullable=False),
     Column("limit", Float, nullable=False),
     Column("type_id", Integer, ForeignKey('device_types.id'), nullable=False),

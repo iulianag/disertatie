@@ -1,6 +1,5 @@
 from sqlalchemy import select
 from sqlalchemy import and_
-import datetime
 from fastapi import status
 from fastapi.encoders import jsonable_encoder
 
@@ -42,7 +41,7 @@ class DelegationsTableManager(BaseManager):
         query = select([user.c.id.label('user_id'),
                         user.c.username.label('username'),
                         profile.c.id.label('profile_id'),
-                        profile.c.profilename.label('profilename')])\
+                        profile.c.name.label('profilename')])\
             .select_from(join_condition)
         if profile_id:
             query = query.where(profile.c.id == profile_id)

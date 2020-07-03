@@ -1,8 +1,7 @@
-
-
 from fastapi import Security, status
 from fastapi.security import APIKeyHeader
 from fastapi.encoders import jsonable_encoder
+
 from src.exceptions.definitions.CustomHTTPException import CustomHTTPException
 from src.validation_models.base_validation_model import InfoModel, BaseResponseModel
 from src.db_data_management.profiles_management import ProfilesTableManager
@@ -17,7 +16,7 @@ async def have_permission(authorization=Security(APIKeyHeader(name="Authorizatio
     user_profiles = get_user_profile_id_list(
         await DelegationsTableManager.read_delegations(user_id=user_id)
     )
-    if profile_id not in user_profiles:
+    if (not profile_id) or (profile_id not in user_profiles):
         raise CustomHTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             content=jsonable_encoder(

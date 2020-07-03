@@ -9,7 +9,7 @@ device_type = Table(
     'device_types',
     Base.metadata,
     Column("id", Integer, autoincrement=True, primary_key=True),
-    Column("typename", String, nullable=False, unique=True),
+    Column("name", String, nullable=False, unique=True),
     Column("description", String, nullable=False),
     Column("unit", String, nullable=True)
 )

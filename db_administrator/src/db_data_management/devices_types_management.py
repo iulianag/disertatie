@@ -6,7 +6,7 @@ from src.database_models.device import device
 from src.database_models.device_type import device_type
 
 
-class TypesTableManager(BaseManager):
+class DevicesTypesTableManager(BaseManager):
     @classmethod
     async def read_types_devices(cls):
         join_condition = device_type\

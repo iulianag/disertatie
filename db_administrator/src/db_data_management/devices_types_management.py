@@ -1,6 +1,4 @@
 from sqlalchemy import select
-from sqlalchemy import and_
-import datetime
 
 from settings import database
 from src.db_data_management.base_management import BaseManager
@@ -14,8 +12,8 @@ class TypesTableManager(BaseManager):
         join_condition = device_type\
             .join(device, device_type.c.id == device_type.c.type_id)
         query = select([device_type.c.id.label('type_id'),
-                        device_type.c.typename.label('typename'),
+                        device_type.c.name.label('typename'),
                         device.c.id.label('device_id'),
-                        device.c.devicename.label('devicename')])\
+                        device.c.name.label('devicename')])\
             .select_from(join_condition)
         return await database.fetch_all(query)

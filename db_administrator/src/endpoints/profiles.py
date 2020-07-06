@@ -29,7 +29,9 @@ async def get_profiles(query: str = Query(None)):
         raise_exception(e)
 
 
-@router.post("/profiles", tags=["profiles"])
+@router.post("/profiles",
+             tags=["profiles"],
+             dependencies=[Depends(have_permission)])
 async def post_profile(item: ProfileIn):
     try:
         return JSONResponse(
@@ -42,7 +44,9 @@ async def post_profile(item: ProfileIn):
         raise_exception(e)
 
 
-@router.get("/profiles/{profile_id}", tags=["profiles"])
+@router.get("/profiles/{profile_id}",
+            tags=["profiles"],
+            dependencies=[Depends(have_permission)])
 async def get_profile(profile_id: int):
     try:
         return JSONResponse(
@@ -55,7 +59,9 @@ async def get_profile(profile_id: int):
         raise_exception(e)
 
 
-@router.delete("/profiles/{profile_id}", tags=["profiles"])
+@router.delete("/profiles/{profile_id}",
+               tags=["profiles"],
+               dependencies=[Depends(have_permission)])
 async def delete_profile(id: int):
     try:
         await ProfilesTableManager.delete_record(profile, id)
@@ -73,7 +79,9 @@ async def delete_profile(id: int):
         raise_exception(e)
 
 
-@router.put("/profiles/{profile_id}", tags=["profiles"])
+@router.put("/profiles/{profile_id}",
+            tags=["profiles"],
+            dependencies=[Depends(have_permission)])
 async def put_profile(id: int, item: BaseProfileIn):
     try:
         return JSONResponse(

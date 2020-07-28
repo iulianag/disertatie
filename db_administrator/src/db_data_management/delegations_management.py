@@ -12,7 +12,7 @@ from src.database_models.profile import profile
 from src.database_models.user import user
 
 
-class DelegationsTableManager(BaseManager):
+class DelegationsTableManager():
     @classmethod
     async def delete_delegation(cls, profile_id, user_id):
         query = delegation.select().where(and_(delegation.c.profile_id == profile_id,
@@ -48,3 +48,11 @@ class DelegationsTableManager(BaseManager):
         if user_id:
             query = query.where(user.c.id == user_id)
         return await database.fetch_all(query)
+
+    @classmethod
+    async def create_delegation(cls, schema):
+        query = delegation.insert().values(**schema.dict())
+        await database.execute(query)
+        return {
+            **schema.dict()
+        }

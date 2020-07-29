@@ -30,7 +30,7 @@ async def get_device_groups(id: int):
 @router.get("/groups/{id}/devices",
             tags=["device_group"],
             dependencies=[Depends(have_permission)])
-async def get_device_groups(id: int):
+async def get_group_devices(id: int):
     try:
         return JSONResponse(
             status_code=status.HTTP_200_OK,

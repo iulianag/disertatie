@@ -1,6 +1,5 @@
 from sqlalchemy import select
 from sqlalchemy import and_
-import datetime
 from fastapi import status
 from fastapi.encoders import jsonable_encoder
 
@@ -13,7 +12,7 @@ from src.database_models.profile import profile
 from src.database_models.group import group
 
 
-class ResponsibilitiesTableManager(BaseManager):
+class ResponsibilitiesTableManager(object):
     @classmethod
     async def delete_responsibility(cls, profile_id, group_id):
         query = responsibility.select().where(and_(responsibility.c.profile_id == profile_id,
@@ -40,12 +39,20 @@ class ResponsibilitiesTableManager(BaseManager):
             .join(responsibility, responsibility.c.device_id == profile.c.id)\
             .join(group, group.c.id == responsibility.c.group_id)
         query = select([profile.c.id.label('profile_id'),
-                        profile.c.profilename.label('profilename'),
+                        profile.c.name.label('profilename'),
                         group.c.id.label('group_id'),
-                        group.c.groupname.label('groupname')])\
+                        group.c.name.label('groupname')])\
             .select_from(join_condition)
         if profile_id:
             query = query.where(profile.c.id == profile_id)
         if group_id:
             query = query.where(group.c.id == group_id)
         return await database.fetch_all(query)
+
+    @classmethod
+    async def create_responsibility(cls, schema):
+        query = responsibility.insert().values(**schema.dict())
+        await database.execute(query)
+        return {
+            **schema.dict()
+        }

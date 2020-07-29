@@ -6,13 +6,12 @@ from fastapi.encoders import jsonable_encoder
 from settings import database
 from src.exceptions.definitions.CustomHTTPException import CustomHTTPException
 from src.validation_models.base_validation_model import InfoModel, BaseResponseModel
-from src.db_data_management.base_management import BaseManager
 from src.database_models.delegation import delegation
 from src.database_models.profile import profile
 from src.database_models.user import user
 
 
-class DelegationsTableManager():
+class DelegationsTableManager(object):
     @classmethod
     async def delete_delegation(cls, profile_id, user_id):
         query = delegation.select().where(and_(delegation.c.profile_id == profile_id,

@@ -18,11 +18,7 @@ def format_delegation_details(record):
 
 
 def get_delegations_list(record_list):
-    user_list = []
+    delegation_list = []
     for record in record_list:
-        user_list.append(format_delegation_details(record))
-    return BaseResponseModel(data=user_list)
-
-
-def get_delegation_details(record):
-    return BaseResponseModel(data=[format_delegation_details(record)])
+        delegation_list.append(format_delegation_details(record))
+    return BaseResponseModel(data=delegation_list)

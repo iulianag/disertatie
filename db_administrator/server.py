@@ -10,7 +10,7 @@ from src.endpoints import devices
 from src.endpoints import device_types
 from src.endpoints import groups
 from src.endpoints import delegations
-from src.endpoints import device_groups
+from src.endpoints import device_group
 from src.endpoints import respnsibilities
 from src.exceptions.handlers import request_validation
 
@@ -22,7 +22,7 @@ app.include_router(devices.router)
 app.include_router(device_types.router)
 app.include_router(groups.router)
 app.include_router(delegations.router)
-app.include_router(device_groups.router)
+app.include_router(device_group.router)
 app.include_router(respnsibilities.router)
 
 

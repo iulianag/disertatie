@@ -7,15 +7,14 @@ from fastapi.encoders import jsonable_encoder
 from settings import database
 from src.exceptions.definitions.CustomHTTPException import CustomHTTPException
 from src.validation_models.base_validation_model import InfoModel, BaseResponseModel
-from src.db_data_management.base_management import BaseManager
 from src.database_models.device_group import device_group
 from src.database_models.device import device
 from src.database_models.group import group
 
 
-class ResponsibilitiesTableManager(BaseManager):
+class DevicegroupTableManager(object):
     @classmethod
-    async def delete_responsibility(cls, device_id, group_id):
+    async def delete_device_group(cls, device_id, group_id):
         query = device_group.select().where(and_(device_group.c.device_id == device_id,
                                                  device_group.c.group_id == group_id))
         record = await database.execute(query)
@@ -40,12 +39,20 @@ class ResponsibilitiesTableManager(BaseManager):
             .join(device_group, device_group.c.device_id == device.c.id)\
             .join(group, group.c.id == device_group.c.group_id)
         query = select([device.c.id.label('device_id'),
-                        device.c.devicename.label('devicename'),
+                        device.c.name.label('devicename'),
                         group.c.id.label('group_id'),
-                        group.c.groupname.label('groupname')])\
+                        group.c.name.label('groupname')])\
             .select_from(join_condition)
         if device_id:
             query = query.where(device.c.id == device_id)
         if group_id:
             query = query.where(group.c.id == group_id)
         return await database.fetch_all(query)
+
+    @classmethod
+    async def create_device_group(cls, schema):
+        query = device_group.insert().values(**schema.dict())
+        await database.execute(query)
+        return {
+            **schema.dict()
+        }

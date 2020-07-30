@@ -6,7 +6,12 @@ class BaseUserIn(BaseModel):
     email: str
 
 
-class UserIn(BaseUserIn):
-    super(BaseUserIn)
+class UserCredentialsIn(BaseModel):
     username: str
     password: str
+
+
+class UserIn(UserCredentialsIn, BaseUserIn):
+    super(UserCredentialsIn)
+    super(BaseUserIn)
+

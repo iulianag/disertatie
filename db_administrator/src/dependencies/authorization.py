@@ -18,8 +18,8 @@ async def is_authenticated(authorization=Security(APIKeyHeader(name="Authorizati
                 )
             )
         )
-    user_id = await UsersTableManager.is_valid_token(authorization)
-    if not user_id:
+    user_details = await UsersTableManager.is_valid_token(authorization)
+    if not user_details:
         raise CustomHTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             content=jsonable_encoder(
@@ -30,4 +30,4 @@ async def is_authenticated(authorization=Security(APIKeyHeader(name="Authorizati
                 )
             )
         )
-    return user_id
+    return user_details['id']

@@ -35,7 +35,7 @@ async def get_profiles(query: str = Query(None)):
 async def post_profile(item: ProfileIn):
     try:
         return JSONResponse(
-            status_code=status.HTTP_200_OK,
+            status_code=status.HTTP_201_CREATED,
             content=jsonable_encoder(
                 get_profile_details(await ProfilesTableManager.create_record(profile, item))
             )
@@ -44,22 +44,22 @@ async def post_profile(item: ProfileIn):
         raise_exception(e)
 
 
-@router.get("/profiles/{profile_id}",
+@router.get("/profiles/{id}",
             tags=["profiles"],
             dependencies=[Depends(have_permission)])
-async def get_profile(profile_id: int):
+async def get_profile(id: int):
     try:
         return JSONResponse(
             status_code=status.HTTP_200_OK,
             content=jsonable_encoder(
-                get_profile_details(await ProfilesTableManager.read_record(profile, profile_id))
+                get_profile_details(await ProfilesTableManager.read_record(profile, id))
             )
         )
     except Exception as e:
         raise_exception(e)
 
 
-@router.delete("/profiles/{profile_id}",
+@router.delete("/profiles/{id}",
                tags=["profiles"],
                dependencies=[Depends(have_permission)])
 async def delete_profile(id: int):
@@ -79,7 +79,7 @@ async def delete_profile(id: int):
         raise_exception(e)
 
 
-@router.put("/profiles/{profile_id}",
+@router.put("/profiles/{id}",
             tags=["profiles"],
             dependencies=[Depends(have_permission)])
 async def put_profile(id: int, item: BaseProfileIn):

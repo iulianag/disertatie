@@ -15,5 +15,5 @@ device = Table(
     Column("name", String, nullable=False, unique=True),
     Column("description", String, nullable=False),
     Column("limit", Float, nullable=False),
-    Column("type_id", Integer, ForeignKey('device_types.id'), nullable=False)
+    Column("type_id", Integer, ForeignKey('device_types.id', ondelete='CASCADE'), nullable=False)
 )

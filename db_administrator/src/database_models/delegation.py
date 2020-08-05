@@ -10,7 +10,7 @@ from src.database_models.base import Base
 delegation = Table(
     'delegations',
     Base.metadata,
-    Column("user_id", Integer, ForeignKey('users.id'), nullable=False),
-    Column("profile_id", Integer, ForeignKey('profiles.id'), nullable=False),
+    Column("user_id", Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False),
+    Column("profile_id", Integer, ForeignKey('profiles.id', ondelete='CASCADE'), nullable=False),
     PrimaryKeyConstraint('user_id', 'profile_id', name='delegations_pk')
 )

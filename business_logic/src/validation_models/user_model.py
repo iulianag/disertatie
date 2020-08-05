@@ -15,3 +15,8 @@ class UserIn(UserCredentialsIn, BaseUserIn):
     super(UserCredentialsIn)
     super(BaseUserIn)
 
+
+class UserProfileIn(BaseModel):
+    user_id: int
+    profile_id: int
+

@@ -8,3 +8,8 @@ class BaseProfileIn(BaseModel):
 class ProfileIn(BaseProfileIn):
     super(BaseProfileIn)
     name: str
+
+
+class ProfileGroupIn(BaseModel):
+    profile_id: int
+    group_id: int

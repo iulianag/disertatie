@@ -36,7 +36,7 @@ class ResponsibilitiesTableManager(object):
     @classmethod
     async def read_responsibilities(cls, profile_id=None, group_id=None):
         join_condition = profile\
-            .join(responsibility, responsibility.c.device_id == profile.c.id)\
+            .join(responsibility, responsibility.c.profile_id == profile.c.id)\
             .join(group, group.c.id == responsibility.c.group_id)
         query = select([profile.c.id.label('profile_id'),
                         profile.c.name.label('profilename'),

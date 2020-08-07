@@ -43,7 +43,7 @@ async def post_group(item: GroupIn):
         raise_exception(e)
 
 
-@router.get("/groups/{group_id}",
+@router.get("/groups/{id}",
             tags=["groups"],
             dependencies=[Depends(have_permission)])
 async def get_group(id: int):
@@ -58,7 +58,7 @@ async def get_group(id: int):
         raise_exception(e)
 
 
-@router.delete("/groups/{group_id}",
+@router.delete("/groups/{id}",
                tags=["groups"],
                dependencies=[Depends(have_permission)])
 async def delete_group(id: int):
@@ -78,7 +78,7 @@ async def delete_group(id: int):
         raise_exception(e)
 
 
-@router.put("/groups/{group_id}",
+@router.put("/groups/{id}",
             tags=["groups"],
             dependencies=[Depends(have_permission)])
 async def put_group(id: int, item: BaseGroupIn):

@@ -64,7 +64,7 @@ async def get_profile(id: int,
                 headers={"Authorization": authorization}
             )
             users = response2.json()
-            profile_details['data'][0]['profiles'] = get_profile_users(users['data'])
+            profile_details['data'][0]['users'] = get_profile_users(users['data'])
         return JSONResponse(
             status_code=response1.status_code,
             content=profile_details

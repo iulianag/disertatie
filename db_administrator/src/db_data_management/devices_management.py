@@ -16,7 +16,7 @@ class DevicesTableManager(BaseManager):
             query = query.where(table.c.name.ilike(f'%{filter_query}%'))
         if type_name:
             type_query = device_type.select().where(device_type.c.name == type_name)
-            type_record = database.fetch_one(type_query)
+            type_record = await database.fetch_one(type_query)
             if not type_record:
                 raise CustomHTTPException(
                     status_code=status.HTTP_404_NOT_FOUND,

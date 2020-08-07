@@ -44,7 +44,7 @@ async def post_type(item: DeviceTypeIn):
         raise_exception(e)
 
 
-@router.get("/types/{type_id}",
+@router.get("/types/{id}",
             tags=["types"],
             dependencies=[Depends(have_permission)])
 async def get_type(id: int):
@@ -59,7 +59,7 @@ async def get_type(id: int):
         raise_exception(e)
 
 
-@router.delete("/types/{type_id}",
+@router.delete("/types/{id}",
                tags=["types"],
                dependencies=[Depends(have_permission)])
 async def delete_type(id: int):
@@ -79,7 +79,7 @@ async def delete_type(id: int):
         raise_exception(e)
 
 
-@router.put("/types/{type_id}",
+@router.put("/types/{id}",
             tags=["types"],
             dependencies=[Depends(have_permission)])
 async def put_type(id: int, item: BaseDeviceTypeIn):

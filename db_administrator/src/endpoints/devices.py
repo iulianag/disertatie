@@ -44,7 +44,7 @@ async def post_device(item: DeviceIn):
         raise_exception(e)
 
 
-@router.get("/devices/{device_id}",
+@router.get("/devices/{id}",
             tags=["devices"],
             dependencies=[Depends(have_permission)])
 async def get_device(id: int):
@@ -59,7 +59,7 @@ async def get_device(id: int):
         raise_exception(e)
 
 
-@router.delete("/devices/{device_id}",
+@router.delete("/devices/{id}",
                tags=["devices"],
                dependencies=[Depends(have_permission)])
 async def delete_device(id: int):
@@ -79,7 +79,7 @@ async def delete_device(id: int):
         raise_exception(e)
 
 
-@router.put("/devices/{device_id}",
+@router.put("/devices/{id}",
             tags=["devices"],
             dependencies=[Depends(have_permission)])
 async def put_device(id: int, item: BaseDeviceIn):

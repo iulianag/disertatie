@@ -9,4 +9,4 @@ class BaseDeviceIn(BaseModel):
 class DeviceIn(BaseDeviceIn):
     super(BaseDeviceIn)
     name: str
-    type_id: int = None
+    type_id: int

@@ -1,6 +1,5 @@
-from fastapi import APIRouter, status, Security
+from fastapi import APIRouter, Security
 from fastapi.security import APIKeyHeader
-from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 import requests
 
@@ -17,7 +16,20 @@ async def login(item: UserCredentialsIn):
     try:
         response = requests.post(f"{DB_SERVER_URL}/login", json=item.dict())
         return JSONResponse(
-            status_code=status.HTTP_200_OK,
+            status_code=response.status_code,
+            content=response.json()
+        )
+    except Exception as e:
+        raise_exception(e)
+
+
+@router.get("/",
+            tags=["authorization"])
+async def get_my_profile(authorization=Security(APIKeyHeader(name="Authorization", auto_error=False))):
+    try:
+        response = requests.get(f"{DB_SERVER_URL}/", headers={"Authorization": authorization})
+        return JSONResponse(
+            status_code=response.status_code,
             content=response.json()
         )
     except Exception as e:
@@ -30,7 +42,7 @@ async def logout(authorization=Security(APIKeyHeader(name="Authorization", auto_
     try:
         response = requests.post(f"{DB_SERVER_URL}/logout", headers={"Authorization": authorization})
         return JSONResponse(
-            status_code=status.HTTP_200_OK,
+            status_code=response.status_code,
             content=response.json()
         )
     except Exception as e:

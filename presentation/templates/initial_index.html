@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	{% block title %}
+	{% endblock %}
+	<link href="{{ request.url_for('static', path='/css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+	<div id="header">
+		<div>
+			<a href="{{ request.url_for('home') }}" id="logo">
+				<img src="{{ request.url_for('static', path='/images/fl_logo.png') }}" alt="logo">
+			</a>
+		</div>
+	</div>
+
+	<div id="body">
+
+	{% block content %}
+	{% endblock %}
+
+	</div>
+</body>
+</html>

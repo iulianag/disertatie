@@ -1,0 +1,141 @@
+/*------------------------- Layout styles ------------------------*/
+body {
+	margin:0;
+	font-family:Arial, Helvetica, sans-serif;
+	background:url(../images/bg-body.jpg);
+	font-size:12px;
+}
+a {
+	outline:none;
+}
+a img {
+	border:0;
+	display:block;
+}
+p {
+	font-size:12px;
+	line-height:24px;
+	letter-spacing:0.05em;
+	color:#959595;
+}
+p a {
+	color:#959595;
+}
+p a:hover {
+	color:#1bb5ac;
+}
+/*------------------------- Header ------------------------*/
+#header {
+	background:#05434a;
+	height:110px;
+}
+#header div {
+	margin:0 auto;
+	padding:0 0 0 29px;
+	width:931px;
+}
+#header div a#logo {
+	display:block;
+	float:left;
+	margin:15px 0 0;
+}
+#header div ul {
+	float:right;
+	list-style:none;
+	padding:0;
+    vertical-align: bottom;
+}
+#header div ul li {
+	float:left;
+	height:60px;
+	text-align:left;
+	width:120px;
+	display: inline;
+    position: relative;
+}
+#header div ul li a {
+	color:#787b66;
+	display:block;
+	height:60px;
+	letter-spacing:.075em;
+	line-height:60px;
+	text-align:center;
+	text-decoration:none;
+	text-shadow:0 1px 0 #fff;
+}
+
+
+#header div ul li.selected a, #header div ul li a:hover {
+	color:#1bb556;
+}
+
+#header div ul li ul.dropdown{
+        min-width: 100%; /* Set width of the dropdown */
+        background: #05434a;
+        display: none;
+        position: absolute;
+        z-index: 999;
+        left: 0;
+    }
+#header div ul li:hover ul.dropdown{
+        display: block; /* Display the dropdown */
+    }
+#header div ul li ul.dropdown li{
+        display: block;
+        height:50px;
+    }
+
+/*------------------------- Body ------------------------*/
+#body {
+	margin:0 auto 97px;
+	min-height:500px;
+	padding:38px 29px 0;
+	width:902px;
+}
+
+/*------------------------- Footer ------------------------*/
+#footer {
+	background:url(../images/bg-footer.png) repeat-x;
+	position: absolute;
+    width: 100%;
+	height:130px;
+}
+
+/*------------------------- Login ------------------------*/
+/* Bordered form */
+form {
+  border: 3px solid #E1F1F1;
+  width: 50%;
+  align: center;
+}
+
+/* Full-width inputs */
+input[name=username], input[name=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+input[type=submit] {
+  background-color: #7FC7E5;
+  color: black;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 10px;
+}

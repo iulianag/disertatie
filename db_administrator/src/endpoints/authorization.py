@@ -33,6 +33,23 @@ async def login(data: UserCredentialsIn):
         raise_exception(e)
 
 
+@router.get("/",
+            tags=["authorization"])
+async def get_my_profile(user_details: dict = Depends(is_authenticated)):
+    try:
+        await UsersTableManager.update_token(user_details['username'])
+        return JSONResponse(
+            status_code=status.HTTP_200_OK,
+            content=jsonable_encoder(
+                BaseResponseModel(
+                    data=[user_details]
+                )
+            )
+        )
+    except Exception as e:
+        raise_exception(e)
+
+
 @router.post("/logout",
              tags=["authorization"])
 async def logout(user_details: dict = Depends(is_authenticated)):

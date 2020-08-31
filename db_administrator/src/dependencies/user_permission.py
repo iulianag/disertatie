@@ -11,7 +11,7 @@ from src.utils.delegation_utils import get_user_profile_id_list
 
 
 async def have_permission(authorization=Security(APIKeyHeader(name="Authorization", auto_error=False))):
-    user_id = await is_authenticated(authorization)
+    user_id = (await is_authenticated(authorization))['id']
     profile_id = await ProfilesTableManager.get_profile_id_by_profilename('admin')
     user_profiles = get_user_profile_id_list(
         await DelegationsTableManager.read_delegations(user_id=user_id)

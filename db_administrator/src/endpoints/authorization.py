@@ -37,7 +37,6 @@ async def login(data: UserCredentialsIn):
             tags=["authorization"])
 async def get_my_profile(user_details: dict = Depends(is_authenticated)):
     try:
-        await UsersTableManager.update_token(user_details['username'])
         return JSONResponse(
             status_code=status.HTTP_200_OK,
             content=jsonable_encoder(

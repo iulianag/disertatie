@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+
+{% block title %}
+	<title>Alerts</title>
+{% endblock %}
+
+{% block content %}
+	<h1>Alerts</h1>
+	<br>
+	<table id="alerts">
+	    <tr>
+			<th><b>Device Id</b></th>
+			<th><b>Device name</b></th>
+			<th><b>Value</b></th>
+			<th><b>Limit</b></th>
+			<th><b>Unit</b></th>
+			<th><b>Report date</b></th>
+		</tr>
+        {% for data in data_list %}
+		<tr>
+			<td>{{ data['device_id'] }}</td>
+			<td>{{ data['name'] }}</td>
+			<td>{{ data['current_value'] }}</td>
+			<td>{{ data['limit'] }}</td>
+			<td>{{ data['unit'] }}</td>
+			<td>{{ data['report_date'] }}</td>
+	  	</tr>
+		{% endfor %}
+	</table>
+{% endblock %}

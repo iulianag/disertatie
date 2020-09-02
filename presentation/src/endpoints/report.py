@@ -31,3 +31,51 @@ async def real_time_values(request: Request):
         return response
     except Exception as e:
         raise_exception(e)
+
+
+@router.get("/alerts",
+            tags=["Reports"])
+async def get_alerts(request: Request):
+    try:
+        authorization = AuthorizationUser.get_token(request.client.host)
+        if not authorization:
+            return RedirectResponse('/')
+        sensors_values = requests.get(f"{BL_SERVER_URL}/alerts", headers={"Authorization": authorization})
+        if sensors_values.status_code == status.HTTP_401_UNAUTHORIZED:
+            AuthorizationUser.logout_user(request.client.host)
+            return RedirectResponse('/')
+        response = templates.TemplateResponse(
+            'alerts.html',
+            context={
+                'request': request,
+                'data_list': (sensors_values.json())['data']
+            },
+            status_code=status.HTTP_200_OK
+        )
+        return response
+    except Exception as e:
+        raise_exception(e)
+
+
+@router.get("/reports",
+            tags=["Reports"])
+async def get_reports(request: Request):
+    try:
+        authorization = AuthorizationUser.get_token(request.client.host)
+        if not authorization:
+            return RedirectResponse('/')
+        sensors_values = requests.get(f"{BL_SERVER_URL}/reports", headers={"Authorization": authorization})
+        if sensors_values.status_code == status.HTTP_401_UNAUTHORIZED:
+            AuthorizationUser.logout_user(request.client.host)
+            return RedirectResponse('/')
+        response = templates.TemplateResponse(
+            'reports.html',
+            context={
+                'request': request,
+                'data_list': (sensors_values.json())['data']
+            },
+            status_code=status.HTTP_200_OK
+        )
+        return response
+    except Exception as e:
+        raise_exception(e)

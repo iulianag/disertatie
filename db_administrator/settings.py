@@ -4,6 +4,13 @@ import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 
 from src.database_models.base import Base
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(
+        schemes=["pbkdf2_sha256"],
+        default="pbkdf2_sha256",
+        pbkdf2_sha256__default_rounds=30000
+)
 
 SERVER_HOST = "0.0.0.0"
 SERVER_PORT = 5001

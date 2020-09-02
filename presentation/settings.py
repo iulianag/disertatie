@@ -1,6 +1,12 @@
 from fastapi import FastAPI
 from fastapi.templating import Jinja2Templates
+from passlib.context import CryptContext
 
+pwd_context = CryptContext(
+        schemes=["pbkdf2_sha256"],
+        default="pbkdf2_sha256",
+        pbkdf2_sha256__default_rounds=30000
+)
 
 SERVER_HOST = "0.0.0.0"
 SERVER_PORT = 5010

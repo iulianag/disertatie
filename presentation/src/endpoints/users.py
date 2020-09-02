@@ -2,7 +2,7 @@ from fastapi import APIRouter, status, Request, Form
 import requests
 from fastapi.responses import RedirectResponse
 
-from settings import BL_SERVER_URL, templates
+from settings import BL_SERVER_URL, templates, pwd_context
 from src.utils.base_utils import raise_exception
 from src.utils.authorization_utils import AuthorizationUser
 
@@ -48,7 +48,7 @@ async def post_users(request: Request,
                                       headers={"Authorization": authorization},
                                       json={
                                           'username': username,
-                                          'password': password,
+                                          'password': pwd_context.encrypt(password),
                                           'full_name': fullName,
                                           'email': email
                                       })

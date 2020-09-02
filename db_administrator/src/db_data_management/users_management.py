@@ -3,7 +3,7 @@ import datetime
 from fastapi import status
 from fastapi.encoders import jsonable_encoder
 
-from settings import database
+from settings import database, pwd_context
 from src.db_data_management.base_management import BaseManager
 from src.database_models.user import user
 from src.exceptions.definitions.CustomHTTPException import CustomHTTPException
@@ -63,7 +63,7 @@ class UsersTableManager(BaseManager):
                     )
                 )
             )
-        if password != record['password']:
+        if not pwd_context.verify(password, record['password']):
             raise CustomHTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 content=jsonable_encoder(

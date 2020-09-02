@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+
+{% block title %}
+	<title>Group</title>
+{% endblock %}
+
+{% block content %}
+	<h1>{{ data_list['groupname'] }}</h1>
+	<br>
+	<table id="group">
+	  <tr>
+		<td><b>Id</b></td>
+		<td>{{ data_list['id'] }}</td>
+	  </tr>
+	  <tr>
+		<td><b>Group name</b></td>
+		<td>{{ data_list['groupname'] }}</td>
+	  </tr>
+	  <tr>
+		<td><b>Description</b></td>
+		<td>{{ data_list['description'] }}</td>
+	  </tr>
+	</table>
+
+{% endblock %}

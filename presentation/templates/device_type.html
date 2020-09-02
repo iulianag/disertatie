@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+
+{% block title %}
+	<title>Device type</title>
+{% endblock %}
+
+{% block content %}
+	<h1>{{ data_list['name'] }}</h1>
+	<br>
+	<table id="type">
+	  <tr>
+		<td><b>Id</b></td>
+		<td>{{ data_list['id'] }}</td>
+	  </tr>
+	  <tr>
+		<td><b>Device type name</b></td>
+		<td>{{ data_list['name'] }}</td>
+	  </tr>
+	  <tr>
+		<td><b>Description</b></td>
+		<td>{{ data_list['description'] }}</td>
+	  </tr>
+	  <tr>
+		<td><b>Unit</b></td>
+		<td>{{ data_list['unit'] }}</td>
+	  </tr>
+	</table>
+
+{% endblock %}

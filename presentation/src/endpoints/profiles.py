@@ -10,7 +10,7 @@ router = APIRouter()
 
 
 @router.get("/profiles",
-            tags=["Users"])
+            tags=["Profiles"])
 async def get_profiles(request: Request):
     try:
         authorization = AuthorizationUser.get_token(request.client.host)
@@ -65,7 +65,7 @@ async def post_profiles(request: Request,
 
 
 @router.get("/profiles/{id}",
-            tags=["Users"])
+            tags=["Profiles"])
 async def get_profile(request: Request, id: int):
     try:
         authorization = AuthorizationUser.get_token(request.client.host)
@@ -89,7 +89,7 @@ async def get_profile(request: Request, id: int):
 
 
 @router.post("/profiles/groups",
-             tags=["Users"])
+             tags=["Profiles"])
 async def post_profiles(request: Request,
                      profileId: int = Form(...),
                      groupId: int = Form(...)):

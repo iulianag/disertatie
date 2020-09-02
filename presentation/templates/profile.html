@@ -1,0 +1,40 @@
+{% extends "index.html" %}
+
+{% block title %}
+	<title>User</title>
+{% endblock %}
+
+{% block content %}
+	<h1>{{ data_list['profilename'] }}</h1>
+	<br>
+	<table id="profile">
+	  <tr>
+		<td><b>Id</b></td>
+		<td>{{ data_list['id'] }}</td>
+	  </tr>
+	  <tr>
+		<td><b>Username</b></td>
+		<td>{{ data_list['profilename'] }}</td>
+	  </tr>
+	  <tr>
+		<td><b>Email</b></td>
+		<td>{{ data_list['description'] }}</td>
+	  </tr>
+	  <tr>
+		<td><b>Profiles</b></td>
+		<td>
+			{% for group in data_list['groups'] %}
+			<p>Id: {{ group['group_id'] }},   Name: {{ group['groupname'] }}</p>
+			{% endfor %}
+			<form action="/profiles/groups" method="POST" class="associateItem">
+				<div class="associateItem">
+					<input type="hidden" name="profileId" value="{{ data_list['id'] }}" required>
+					<input type="number" placeholder="Group id" name="groupId" min="1" required>
+					<input type="submit" value="Add">
+				</div>
+			</form>
+		</td>
+	  </tr>
+	</table>
+
+{% endblock %}

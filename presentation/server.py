@@ -5,6 +5,7 @@ from settings import SERVER_HOST, SERVER_PORT
 from src.endpoints import authorization
 from src.endpoints import report
 from src.endpoints import users
+from src.endpoints import profiles
 from src.exceptions.handlers import request_validation
 from fastapi.staticfiles import StaticFiles
 
@@ -12,6 +13,7 @@ from fastapi.staticfiles import StaticFiles
 app.include_router(authorization.router)
 app.include_router(report.router)
 app.include_router(users.router)
+app.include_router(profiles.router)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 

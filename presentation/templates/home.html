@@ -5,6 +5,21 @@
 {% endblock %}
 
 {% block content %}
-	<h1> Home Page</h1>
-    	<p>Result: {{ data_list }} </p>
+	<h1>{{ data_list['full_name'] }}</h1>
+	<br>
+	<table id="user_profile">
+	  <tr>
+		<td><b>Id</b></td>
+		<td>{{ data_list['id'] }}</td>
+	  </tr>
+	  <tr>
+		<td><b>Username</b></td>
+		<td>{{ data_list['username'] }}</td>
+	  </tr>
+	  <tr>
+		<td><b>Email</b></td>
+		<td>{{ data_list['email'] }}</td>
+	  </tr>
+	</table>
+
 {% endblock %}

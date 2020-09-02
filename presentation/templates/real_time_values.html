@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+
+{% block title %}
+	<title>Real time</title>
+{% endblock %}
+
+{% block content %}
+	<h1>Real time values</h1>
+	<br>
+	<table id="real_time">
+		<tr>
+			<th><b>Id</b></th>
+			<th><b>Name</b></th>
+			<th><b>Type</b></th>
+			<th><b>Value</b></th>
+		</tr>
+		{% for data in data_list %}
+		<tr>
+			<td>{{ data['id'] }}</td>
+			<td>{{ data['name'] }}</td>
+			<td>{{ data['type'] }}</td>
+			<td>{{ data['value'] }}</td>
+	  	</tr>
+		{% endfor %}
+	</table>
+
+{% endblock %}

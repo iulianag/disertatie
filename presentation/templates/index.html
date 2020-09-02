@@ -18,6 +18,11 @@
 				</li>
 				<li>
 					<a href="#">Report</a>
+						<ul class="dropdown">
+							<li><a href="{{ request.url_for('real_time_values') }}">Real time</a></li>
+							<li><a href="#">Daily reports</a></li>
+							<li><a href="#">Alerts</a></li>
+						</ul>
 				</li>
 				<li>
 					<a href="#">Settings</a>
@@ -25,10 +30,11 @@
 				<li>
 						<a href="#" >Administration</a>
 						<ul class="dropdown">
-							<li><a href="#">Users</a></li>
+							<li><a href="{{ request.url_for('get_users') }}">Users</a></li>
 							<li><a href="#">Profiles</a></li>
 							<li><a href="#">Devices</a></li>
-							<li><a href="#">Delegations</a></li>
+							<li><a href="#">Devices types</a></li>
+							<li><a href="#">Groups</a></li>
 						</ul>
 				</li>
 				<li>

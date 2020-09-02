@@ -3,7 +3,7 @@ body {
 	margin:0;
 	font-family:Arial, Helvetica, sans-serif;
 	background:url(../images/bg-body.jpg);
-	font-size:12px;
+	font-size:14px;
 }
 a {
 	outline:none;
@@ -13,7 +13,7 @@ a img {
 	display:block;
 }
 p {
-	font-size:12px;
+	font-size:14px;
 	line-height:24px;
 	letter-spacing:0.05em;
 	color:#959595;
@@ -92,6 +92,16 @@ p a:hover {
 	padding:38px 29px 0;
 	width:902px;
 }
+#body table {
+    border-collapse: collapse;
+    width: 500px;
+    height: 20px;
+}
+#body table, th, td {
+    border: 3px solid #E1F1F1;
+    padding: 15px;
+    text-align: left;
+}
 
 /*------------------------- Footer ------------------------*/
 #footer {
@@ -109,8 +119,9 @@ form {
   align: center;
 }
 
+
 /* Full-width inputs */
-input[name=username], input[name=password] {
+div.container input {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -120,7 +131,7 @@ input[name=username], input[name=password] {
 }
 
 /* Set a style for all buttons */
-input[type=submit] {
+.container input[type=submit] {
   background-color: #7FC7E5;
   color: black;
   padding: 14px 20px;
@@ -139,3 +150,71 @@ button:hover {
 .container {
   padding: 10px;
 }
+
+
+form.associateItem {
+  border: 3px solid #E1F1F1;
+  width: 80%;
+  align: center;
+}
+
+/* Full-width inputs */
+div.associateItem input{
+  width: 55%;
+  padding: 10px 12px;
+  margin: 5px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  align: center;
+}
+
+/* Set a style for all buttons */
+div.associateItem input[type=submit] {
+  background-color: #7FC7E5;
+  color: black;
+  padding: 10px 14px;
+  margin: 5px 0;
+  border: none;
+  cursor: pointer;
+  width: 35%;
+  align: center;
+}
+
+/* Add padding to newItem */
+div.associateItem {
+  padding: 10px;
+}
+
+form.newItem {
+  border: 3px solid #E1F1F1;
+  width: 50%;
+  align: center;
+}
+
+/* Full-width inputs */
+div.newItem input{
+  width: 100%;
+  padding: 10px 12px;
+  margin: 5px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+div.newItem input[type=submit] {
+  background-color: #7FC7E5;
+  color: black;
+  padding: 10px 14px;
+  margin: 5px 0;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+}
+
+/* Add padding to newItem */
+div.newItem {
+  padding: 10px;
+}
+

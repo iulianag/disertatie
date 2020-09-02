@@ -8,6 +8,7 @@ from src.endpoints import users
 from src.endpoints import profiles
 from src.endpoints import groups
 from src.endpoints import device_types
+from src.endpoints import devices
 from src.exceptions.handlers import request_validation
 from fastapi.staticfiles import StaticFiles
 
@@ -18,6 +19,7 @@ app.include_router(users.router)
 app.include_router(profiles.router)
 app.include_router(groups.router)
 app.include_router(device_types.router)
+app.include_router(devices.router)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 

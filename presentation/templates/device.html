@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+
+{% block title %}
+	<title>Device</title>
+{% endblock %}
+
+{% block content %}
+	<h1>{{ data_list['name'] }}</h1>
+	<br>
+	<table id="device">
+	  <tr>
+		<td><b>Id</b></td>
+		<td>{{ data_list['id'] }}</td>
+	  </tr>
+	  <tr>
+		<td><b>Group name</b></td>
+		<td>{{ data_list['name'] }}</td>
+	  </tr>
+	  <tr>
+		<td><b>Description</b></td>
+		<td>{{ data_list['description'] }}</td>
+	  </tr>
+	  <tr>
+		<td><b>Limit</b></td>
+		<td>{{ data_list['limit'] }}</td>
+	  </tr>
+	  <tr>
+		<td><b>Type id</b></td>
+		<td>{{ data_list['type_id'] }}</td>
+	  </tr>
+	</table>
+
+{% endblock %}

@@ -8,6 +8,8 @@ from src.db_data_management.alerts_management import AlertsTableManager
 from src.db_data_management.daily_reports_management import DailyReportsTableManager
 from src.utils.reports_utils import (get_alert_list, get_daily_report_list)
 from src.utils.base_utils import raise_exception
+from src.validation_models.report_model import AlertModel
+from src.validation_models.base_validation_model import BaseResponseModel, InfoModel
 
 router = APIRouter()
 
@@ -22,6 +24,22 @@ async def get_alerts(device_id: int = Query(None),
             status_code=status.HTTP_200_OK,
             content=jsonable_encoder(
                 get_alert_list(await AlertsTableManager.read_alerts(device_id, alert_date))
+            )
+        )
+    except Exception as e:
+        raise_exception(e)
+
+
+@router.post("/alerts",
+             tags=["Alerts"])
+async def post_alert(item: AlertModel):
+    try:
+        item.alert_date = datetime.utcnow()
+        await AlertsTableManager.create_alert(item)
+        return JSONResponse(
+            status_code=status.HTTP_201_CREATED,
+            content=jsonable_encoder(
+                BaseResponseModel(info=[InfoModel(type='success', message='Alert added')])
             )
         )
     except Exception as e:

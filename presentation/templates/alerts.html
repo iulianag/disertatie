@@ -10,7 +10,7 @@
 	<table id="alerts">
 	    <tr>
 			<th><b>Device Id</b></th>
-			<th><b>Device name</b></th>
+			<th><b>Parameter type</b></th>
 			<th><b>Value</b></th>
 			<th><b>Limit</b></th>
 			<th><b>Unit</b></th>
@@ -23,7 +23,7 @@
 			<td>{{ data['current_value'] }}</td>
 			<td>{{ data['limit'] }}</td>
 			<td>{{ data['unit'] }}</td>
-			<td>{{ data['report_date'] }}</td>
+			<td>{{ data['alert_date'] }}</td>
 	  	</tr>
 		{% endfor %}
 	</table>

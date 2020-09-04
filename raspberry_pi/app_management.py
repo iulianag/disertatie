@@ -10,3 +10,7 @@ app.add_middleware(
     allow_methods=['GET', 'PUT', 'DELETE'],
     allow_headers=['*']
 )
+
+BL_HOST = '192.168.100.7'
+BL_PORT = 5002
+BL_SERVER_URL = f"http://{BL_HOST}:{BL_PORT}"

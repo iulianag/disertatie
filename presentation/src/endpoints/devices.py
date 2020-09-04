@@ -116,3 +116,38 @@ async def delete_device(request: Request, id: int):
         return response
     except Exception as e:
         raise_exception(e)
+
+
+@router.put("/devices/{id}",
+            tags=["Devices"])
+async def put_settings(request: Request,
+                       id: int,
+                       description: str = Form(...),
+                       limit: float = Form(...)
+                       ):
+    try:
+        authorization = AuthorizationUser.get_token(request.client.host)
+        if not authorization:
+            return RedirectResponse('/')
+        put_resp = requests.put(f"{BL_SERVER_URL}/devices/{id}",
+                                headers={"Authorization": authorization},
+                                json={
+                                    'description': description,
+                                    'limit': limit
+                                })
+        devices_details = requests.get(f"{BL_SERVER_URL}/devices", headers={"Authorization": authorization})
+        if devices_details.status_code == status.HTTP_401_UNAUTHORIZED or \
+                put_resp.status_code == status.HTTP_401_UNAUTHORIZED:
+            AuthorizationUser.logout_user(request.client.host)
+            return RedirectResponse('/')
+        response = templates.TemplateResponse(
+            'devices.html',
+            context={
+                'request': request,
+                'data_list': (devices_details.json())['data']
+            },
+            status_code=status.HTTP_200_OK
+        )
+        return response
+    except Exception as e:
+        raise_exception(e)

@@ -4,9 +4,33 @@
 	<title>Settings</title>
 {% endblock %}
 
-{% block settings %} class="selected" {% endblock %}
-
 {% block content %}
-    <h1> Settings Page</h1>
-    <p> Test </p>
+    <h1>Settings</h1>
+    <br>
+	<table id="settings">
+		<tr>
+			<th><b>Id</b></th>
+			<th><b>Name</b></th>
+			<th><b>Limit</b></th>
+			<th></th>
+		</tr>
+		{% for data in data_list %}
+		<tr>
+			<td>{{ data['id'] }}</td>
+			<td>{{ data['name'] }}</td>
+			<td>
+                <form method="post" id="updateItem{{ data['id'] }}" class="updateItem">
+					<div class="updateItem">
+						<input type="hidden" name="description" value="{{ data['description'] }}" required>
+						<input type="number" name="limit" step="0.01" value="{{ data['limit'] }}" required>
+					</div>
+                </form>
+            </td>
+			<td>
+				<a href="#" onclick="sendPutForm(event, 'updateItem{{ data['id'] }}', '/settings/{{ data['id'] }}')">Save</a>
+			</td>
+	  	</tr>
+		{% endfor %}
+	</table>
 {% endblock %}
+

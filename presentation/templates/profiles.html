@@ -13,6 +13,7 @@
 			<th><b>Name</b></th>
 			<th><b>Description</b></th>
 			<th></th>
+			<th></th>
 		</tr>
 		{% for data in data_list %}
 		<tr>
@@ -20,9 +21,18 @@
 				<a href="{{ request.url_for('get_profile', id=data['id']) }}">{{ data['id'] }}</a>
 			</td>
 			<td>{{ data['profilename'] }}</td>
-			<td>{{ data['description'] }}</td>
+			<td>
+				<form method="post" id="updateItem{{ data['id'] }}" class="updateItem">
+					<div class="updateItem">
+						<input type="text" name="description" value="{{ data['description'] }}" required>
+					</div>
+                </form>
+			</td>
 			<td>
 				<a href="#" onclick="sendDelete(event,'/profiles/{{ data['id'] }}')">Delete</a>
+			</td>
+			<td>
+				<a href="#" onclick="sendPutForm(event, 'updateItem{{ data['id'] }}', '/profiles/{{ data['id'] }}')">Save</a>
 			</td>
 	  	</tr>
 		{% endfor %}

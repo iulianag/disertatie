@@ -112,3 +112,36 @@ async def delete_group(request: Request, id: int):
         return response
     except Exception as e:
         raise_exception(e)
+
+
+@router.put("/groups/{id}",
+            tags=["Groups"])
+async def put_profile(request: Request,
+                      id: int,
+                      description: str = Form(...)):
+    try:
+        authorization = AuthorizationUser.get_token(request.client.host)
+        if not authorization:
+            return RedirectResponse('/')
+        put_resp = requests.put(f"{BL_SERVER_URL}/groups/{id}",
+                                headers={"Authorization": authorization},
+                                json={
+                                    'description': description
+                                })
+        groups_details = requests.get(f"{BL_SERVER_URL}/groups", headers={"Authorization": authorization})
+        if groups_details.status_code == status.HTTP_401_UNAUTHORIZED or \
+                put_resp.status_code == status.HTTP_401_UNAUTHORIZED:
+            AuthorizationUser.logout_user(request.client.host)
+            return RedirectResponse('/')
+        response = templates.TemplateResponse(
+            'profiles.html',
+            context={
+                'request': request,
+                'data_list': (groups_details.json())['data']
+            },
+            status_code=status.HTTP_200_OK
+        )
+        return response
+    except Exception as e:
+        raise_exception(e)
+

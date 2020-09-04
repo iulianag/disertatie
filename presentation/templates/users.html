@@ -14,6 +14,7 @@
 			<th><b>Full name</b></th>
 			<th><b>Email</b></th>
 			<th></th>
+			<th></th>
 		</tr>
 		{% for data in data_list %}
 		<tr>
@@ -21,10 +22,17 @@
 				<a href="{{ request.url_for('get_user', id=data['id']) }}">{{ data['id'] }}</a>
 			</td>
 			<td>{{ data['username'] }}</td>
-			<td>{{ data['full_name'] }}</td>
-			<td>{{ data['email'] }}</td>
+			<td>
+				<input type="text" id="fullName-{{ data['id'] }}" name="fullName" value="{{ data['full_name'] }}" required>
+			</td>
+			<td>
+				<input type="text" id="email-{{ data['id'] }}" name="email" value="{{ data['email'] }}" required>
+			</td>
 			<td>
 				<a href="#" onclick="sendDelete(event,'/users/{{ data['id'] }}')">Delete</a>
+			</td>
+			<td>
+				<a href="#" onclick="sendPut(event,'/users/{{ data['id'] }}','fullName-{{ data['id'] }}','email-{{ data['id'] }}')">Save</a>
 			</td>
 	  	</tr>
 		{% endfor %}

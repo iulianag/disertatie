@@ -218,3 +218,13 @@ div.newItem {
   padding: 10px;
 }
 
+form.updateItem {
+  border: 0px;
+  width: 50%;
+  align: center;
+}
+
+div.updateItem {
+  padding: 0px;
+}
+

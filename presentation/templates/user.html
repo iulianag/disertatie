@@ -23,14 +23,27 @@
 	  <tr>
 		<td><b>Profiles</b></td>
 		<td>
-			{% for profile in data_list['profiles'] %}
-			<p>Id: {{ profile['profile_id'] }},   Name: {{ profile['profilename'] }}</p>
-			{% endfor %}
-			<form action="/users/profiles" method="POST" class="associateItem">
+			<table id="userProfiles">
+				<tr>
+					<th><b>Id</b></th>
+					<th><b>Name</b></th>
+					<th></th>
+				</tr>
+				{% for profile in data_list['profiles'] %}
+				<tr>
+					<td>{{ profile['profile_id'] }}</td>
+					<td>Name: {{ profile['profilename'] }}</td>
+					<td>
+						<a href="#" onclick="sendDelete(event,'/users/{{ data_list['id'] }}/profiles/{{ profile['profile_id'] }}')">Delete</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+			<form action="/users/profiles" method="POST" class="associateItem" id="associateItem">
 				<div class="associateItem">
 					<input type="hidden" name="userId" value="{{ data_list['id'] }}" required>
 					<input type="number" placeholder="Profile id" name="profileId" min="1" required>
-					<input type="submit" value="Add">
+					<input type="submit" value="Add" onclick="sendPostForm(event, 'associateItem', '/users/profiles')">
 				</div>
 			</form>
 		</td>

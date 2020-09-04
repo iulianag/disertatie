@@ -13,6 +13,7 @@
 			<th><b>Name</b></th>
 			<th><b>Description</b></th>
 			<th><b>Unit</b></th>
+			<th></th>
 		</tr>
 		{% for data in data_list %}
 		<tr>
@@ -22,6 +23,9 @@
 			<td>{{ data['name'] }}</td>
 			<td>{{ data['description'] }}</td>
 			<td>{{ data['unit'] }}</td>
+			<td>
+				<a href="#" onclick="sendDelete(event,'/types/{{ data['id'] }}')">Delete</a>
+			</td>
 	  	</tr>
 		{% endfor %}
 	</table>

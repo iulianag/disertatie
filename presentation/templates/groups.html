@@ -7,26 +7,30 @@
 {% block content %}
     <h1>Groups</h1>
     <br>
-	<table id="profiles">
+	<table id="groups">
 		<tr>
 			<th><b>Id</b></th>
 			<th><b>Name</b></th>
 			<th><b>Description</b></th>
+			<th></th>
 		</tr>
 		{% for data in data_list %}
 		<tr>
 			<td>
-				<a href="{{ request.url_for('get_profile', id=data['id']) }}">{{ data['id'] }}</a>
+				<a href="{{ request.url_for('get_group', id=data['id']) }}">{{ data['id'] }}</a>
 			</td>
 			<td>{{ data['groupname'] }}</td>
 			<td>{{ data['description'] }}</td>
+			<td>
+				<a href="#" onclick="sendDelete(event,'/groups/{{ data['id'] }}')">Delete</a>
+			</td>
 	  	</tr>
 		{% endfor %}
 	</table>
 	<form action="/groups" method="POST" class="newItem">
 		<div class="newItem"><br>
-			<label for="name"><b>Profile name</b></label><br>
-			<input type="text" placeholder="Enter profile name" name="name" required><br>
+			<label for="name"><b>Group name</b></label><br>
+			<input type="text" placeholder="Enter group name" name="name" required><br>
 			<label for="description"><b>Description</b></label><br>
 			<input type="text" placeholder="Enter description" name="description" required><br>
 			<input type="submit" value="Add">

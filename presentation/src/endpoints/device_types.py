@@ -88,3 +88,29 @@ async def get_type(request: Request, id: int):
         return response
     except Exception as e:
         raise_exception(e)
+
+
+@router.delete("/types/{id}",
+               tags=["Types"])
+async def delete_type(request: Request, id: int):
+    try:
+        authorization = AuthorizationUser.get_token(request.client.host)
+        if not authorization:
+            return RedirectResponse('/')
+        delete_resp = requests.delete(f"{BL_SERVER_URL}/types/{id}", headers={"Authorization": authorization})
+        type_details = requests.get(f"{BL_SERVER_URL}/types", headers={"Authorization": authorization})
+        if delete_resp.status_code == status.HTTP_401_UNAUTHORIZED or \
+                type_details.status_code == status.HTTP_401_UNAUTHORIZED:
+            AuthorizationUser.logout_user(request.client.host)
+            return RedirectResponse('/')
+        response = templates.TemplateResponse(
+            'users.html',
+            context={
+                'request': request,
+                'data_list': (type_details.json())['data']
+            },
+            status_code=status.HTTP_200_OK
+        )
+        return response
+    except Exception as e:
+        raise_exception(e)

@@ -90,3 +90,29 @@ async def get_device(request: Request, id: int):
         return response
     except Exception as e:
         raise_exception(e)
+
+
+@router.delete("/devices/{id}",
+               tags=["Devices"])
+async def delete_device(request: Request, id: int):
+    try:
+        authorization = AuthorizationUser.get_token(request.client.host)
+        if not authorization:
+            return RedirectResponse('/')
+        delete_resp = requests.delete(f"{BL_SERVER_URL}/devices/{id}", headers={"Authorization": authorization})
+        devices_details = requests.get(f"{BL_SERVER_URL}/devices", headers={"Authorization": authorization})
+        if delete_resp.status_code == status.HTTP_401_UNAUTHORIZED or \
+                devices_details.status_code == status.HTTP_401_UNAUTHORIZED:
+            AuthorizationUser.logout_user(request.client.host)
+            return RedirectResponse('/')
+        response = templates.TemplateResponse(
+            'users.html',
+            context={
+                'request': request,
+                'data_list': (devices_details.json())['data']
+            },
+            status_code=status.HTTP_200_OK
+        )
+        return response
+    except Exception as e:
+        raise_exception(e)

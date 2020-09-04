@@ -14,6 +14,7 @@
 			<th><b>Description</b></th>
 			<th><b>Limit</b></th>
 			<th><b>Type id</b></th>
+			<th></th>
 		</tr>
 		{% for data in data_list %}
 		<tr>
@@ -24,6 +25,9 @@
 			<td>{{ data['description'] }}</td>
 			<td>{{ data['limit'] }}</td>
 			<td>{{ data['type_id'] }}</td>
+			<td>
+				<a href="#" onclick="sendDelete(event,'/devices/{{ data['id'] }}')">Delete</a>
+			</td>
 	  	</tr>
 		{% endfor %}
 	</table>

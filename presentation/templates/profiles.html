@@ -12,6 +12,7 @@
 			<th><b>Id</b></th>
 			<th><b>Name</b></th>
 			<th><b>Description</b></th>
+			<th></th>
 		</tr>
 		{% for data in data_list %}
 		<tr>
@@ -20,6 +21,9 @@
 			</td>
 			<td>{{ data['profilename'] }}</td>
 			<td>{{ data['description'] }}</td>
+			<td>
+				<a href="#" onclick="sendDelete(event,'/profiles/{{ data['id'] }}')">Delete</a>
+			</td>
 	  	</tr>
 		{% endfor %}
 	</table>

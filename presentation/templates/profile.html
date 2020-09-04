@@ -23,14 +23,27 @@
 	  <tr>
 		<td><b>Profiles</b></td>
 		<td>
-			{% for group in data_list['groups'] %}
-			<p>Id: {{ group['group_id'] }},   Name: {{ group['groupname'] }}</p>
-			{% endfor %}
-			<form action="/profiles/groups" method="POST" class="associateItem">
+			<table id="userProfiles">
+				<tr>
+					<th><b>Id</b></th>
+					<th><b>Name</b></th>
+					<th></th>
+				</tr>
+				{% for group in data_list['groups'] %}
+				<tr>
+					<td>{{ group['group_id'] }}</td>
+					<td>{{ group['groupname'] }}</td>
+					<td>
+						<a href="#" onclick="sendDelete(event,'/profiles/{{ data_list['id'] }}/groups/{{ group['group_id'] }}')">Delete</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+			<form action="/profiles/groups" method="POST" class="associateItem" id="associateItem">
 				<div class="associateItem">
 					<input type="hidden" name="profileId" value="{{ data_list['id'] }}" required>
 					<input type="number" placeholder="Group id" name="groupId" min="1" required>
-					<input type="submit" value="Add">
+					<input type="submit" value="Add" onclick="sendPostForm(event, 'associateItem', '/profiles/groups')">
 				</div>
 			</form>
 		</td>

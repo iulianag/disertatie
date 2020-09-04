@@ -92,11 +92,37 @@ async def get_user(request: Request, id: int):
         raise_exception(e)
 
 
+@router.delete("/users/{id}",
+               tags=["Users"])
+async def delete_user(request: Request, id: int):
+    try:
+        authorization = AuthorizationUser.get_token(request.client.host)
+        if not authorization:
+            return RedirectResponse('/')
+        delete_user_resp = requests.delete(f"{BL_SERVER_URL}/users/{id}", headers={"Authorization": authorization})
+        users_details = requests.get(f"{BL_SERVER_URL}/users", headers={"Authorization": authorization})
+        if delete_user_resp.status_code == status.HTTP_401_UNAUTHORIZED or \
+                users_details.status_code == status.HTTP_401_UNAUTHORIZED:
+            AuthorizationUser.logout_user(request.client.host)
+            return RedirectResponse('/')
+        response = templates.TemplateResponse(
+            'users.html',
+            context={
+                'request': request,
+                'data_list': (users_details.json())['data']
+            },
+            status_code=status.HTTP_200_OK
+        )
+        return response
+    except Exception as e:
+        raise_exception(e)
+
+
 @router.post("/users/profiles",
              tags=["Users"])
-async def post_users(request: Request,
-                     userId: int = Form(...),
-                     profileId: int = Form(...)):
+async def post_user_profile(request: Request,
+                            userId: int = Form(...),
+                            profileId: int = Form(...)):
     try:
         authorization = AuthorizationUser.get_token(request.client.host)
         if not authorization:
@@ -108,6 +134,36 @@ async def post_users(request: Request,
                                           'profile_id': profileId
                                       })
         if users_details.status_code == status.HTTP_401_UNAUTHORIZED:
+            AuthorizationUser.logout_user(request.client.host)
+            return RedirectResponse('/')
+        user_details = requests.get(f"{BL_SERVER_URL}/users/{userId}", headers={"Authorization": authorization})
+        response = templates.TemplateResponse(
+            'user.html',
+            context={
+                'request': request,
+                'data_list': (user_details.json())['data'][0]
+            },
+            status_code=status.HTTP_200_OK
+        )
+        return response
+    except Exception as e:
+        raise_exception(e)
+
+
+@router.delete("/users/{userId}/profiles/{profileId}",
+               tags=["Users"])
+async def delete_user_profile(request: Request,
+                              userId: int,
+                              profileId: int):
+    try:
+        authorization = AuthorizationUser.get_token(request.client.host)
+        if not authorization:
+            return RedirectResponse('/')
+        delete_user_resp = requests.delete(
+            f"{BL_SERVER_URL}/users/{userId}/profiles/{profileId}",
+            headers={"Authorization": authorization}
+        )
+        if delete_user_resp.status_code == status.HTTP_401_UNAUTHORIZED:
             AuthorizationUser.logout_user(request.client.host)
             return RedirectResponse('/')
         user_details = requests.get(f"{BL_SERVER_URL}/users/{userId}", headers={"Authorization": authorization})

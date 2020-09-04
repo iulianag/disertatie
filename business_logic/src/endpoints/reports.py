@@ -7,8 +7,9 @@ from datetime import datetime
 
 from settings import DB_SERVER_URL, RPI_SERVER_URL
 from src.utils.base_utils import raise_exception
-from src.utils.report_utils import get_sensors_values, get_alert_value
-from src.validation_models.report_model import AlertModel
+from src.utils.report_utils import get_sensors_values, get_alert_value, get_report_values
+from src.validation_models.report_model import AlertModel, ReportModel
+from typing import List
 
 router = APIRouter()
 
@@ -85,7 +86,7 @@ async def create_alerts(item: AlertModel,
 
 @router.get("/reports",
             tags=["Reports"])
-async def get_alerts(device_id: int = Query(None),
+async def get_reports(device_id: int = Query(None),
                      report_date: datetime = Query(None),
                      authorization=Security(APIKeyHeader(name="Authorization", auto_error=False))):
     try:
@@ -96,6 +97,32 @@ async def get_alerts(device_id: int = Query(None),
                 'device_id': device_id,
                 'report_date': report_date
             }
+        )
+        return JSONResponse(
+            status_code=response.status_code,
+            content=response.json()
+        )
+    except Exception as e:
+        raise_exception(e)
+
+
+@router.post("/reports",
+             tags=["Reports"])
+async def create_reports(items: List[ReportModel],
+                         authorization=Security(APIKeyHeader(name="Authorization", auto_error=False))):
+    try:
+        response_db = requests.get(
+            f"{DB_SERVER_URL}/devices",
+            headers={"Authorization": authorization}
+        )
+        reports = get_report_values(items, (response_db.json())['data'])
+        reports_list = []
+        if bool((reports.dict())['data']):
+            reports_list = (reports.dict())['data']
+        response = requests.post(
+            f"{DB_SERVER_URL}/reports",
+            headers={"Authorization": authorization},
+            json=reports_list
         )
         return JSONResponse(
             status_code=response.status_code,

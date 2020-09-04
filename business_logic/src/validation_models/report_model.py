@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from typing import List
 
 
 class AlertModel(BaseModel):
@@ -9,5 +8,7 @@ class AlertModel(BaseModel):
     value: float
 
 
-class AlertListIn(BaseModel):
-    data: List[AlertModel] = []
+class ReportModel(BaseModel):
+    device_id: int
+    parameter: str
+    value: float

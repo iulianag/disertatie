@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from typing import List
 from datetime import datetime
 
 
@@ -11,5 +10,8 @@ class AlertModel(BaseModel):
     alert_date: datetime = None
 
 
-class AlertListIn(BaseModel):
-    data: List[AlertModel] = []
+class ReportModel(BaseModel):
+    device_id: int
+    name: str
+    current_value: float
+    report_date: datetime = None

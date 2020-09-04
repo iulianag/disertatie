@@ -14,15 +14,15 @@ def format_alert_details(record):
 
 
 def get_alert_list(record_list):
-    user_list = []
+    alert_list = []
     for record in record_list:
-        user_list.append(format_alert_details(record))
-    return BaseResponseModel(data=user_list)
+        alert_list.append(format_alert_details(record))
+    return BaseResponseModel(data=alert_list)
 
 
 def format_daily_report_details(record):
     return {
-        'device_id': record['id'],
+        'device_id': record['device_id'],
         'name': record['name'],
         'current_value': record['current_value'],
         'report_date': record['report_date'],
@@ -31,8 +31,8 @@ def format_daily_report_details(record):
 
 
 def get_daily_report_list(record_list):
-    user_list = []
+    report_list = []
     for record in record_list:
-        user_list.append(format_alert_details(record))
-    return BaseResponseModel(data=user_list)
+        report_list.append(format_daily_report_details(record))
+    return BaseResponseModel(data=report_list)
 

@@ -1,0 +1,42 @@
+{
+    "1": {
+        "limit": 50,
+        "type": "dht",
+        "model": 11,
+        "pin": 4,
+        "channel": null,
+        "device": null
+    },
+    "2": {
+        "limit": 50,
+        "type": "dht",
+        "model": 22,
+        "pin": 17,
+        "channel": null,
+        "device": null
+    },
+    "3": {
+        "limit": 50,
+        "type": "dht",
+        "model": 11,
+        "pin": 27,
+        "channel": null,
+        "device": null
+    },
+    "4": {
+        "limit": 50,
+        "type": "soil_moisture",
+        "model": null,
+        "pin": null,
+        "channel": 0,
+        "device": 1
+    },
+    "5": {
+        "limit": 50,
+        "type": "soil_moisture",
+        "model": null,
+        "pin": null,
+        "channel": 1,
+        "device": 1
+    }
+}

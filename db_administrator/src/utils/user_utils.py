@@ -21,3 +21,7 @@ def get_users_list(record_list):
 
 def get_user_details(record):
     return BaseResponseModel(data=[format_user_details(record)])
+
+
+def get_user_device_id_list(record_list):
+    return [record['device_id'] for record in record_list]

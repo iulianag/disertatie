@@ -3,10 +3,13 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from datetime import datetime
 
-from src.dependencies.user_permission import have_permission
+from src.dependencies.user_permission import is_admin
+from src.dependencies.authorization import is_authenticated
 from src.db_data_management.alerts_management import AlertsTableManager
 from src.db_data_management.daily_reports_management import DailyReportsTableManager
+from src.db_data_management.users_management import UsersTableManager
 from src.utils.reports_utils import (get_alert_list, get_daily_report_list)
+from src.utils.user_utils import  get_user_device_id_list
 from src.utils.base_utils import raise_exception
 from src.validation_models.report_model import AlertModel, ReportModel
 from src.validation_models.base_validation_model import BaseResponseModel, InfoModel
@@ -16,15 +19,27 @@ router = APIRouter()
 
 
 @router.get("/alerts",
-            tags=["Alerts"],
-            dependencies=[Depends(have_permission)])
+            tags=["Alerts"])
 async def get_alerts(device_id: int = Query(None),
-                     alert_date: datetime = Query(None)):
+                     alert_date: datetime = Query(None),
+                     user_details: dict = Depends(is_authenticated)):
     try:
+        user_device_id_list = get_user_device_id_list(
+            await UsersTableManager.get_user_devices(
+                user_details['id'],
+                await is_admin(user_details['id'])
+            )
+        )
         return JSONResponse(
             status_code=status.HTTP_200_OK,
             content=jsonable_encoder(
-                get_alert_list(await AlertsTableManager.read_alerts(device_id, alert_date))
+                get_alert_list(
+                    await AlertsTableManager.read_alerts(
+                        device_id=device_id,
+                        alert_date=alert_date,
+                        device_id_list=user_device_id_list
+                    )
+                )
             )
         )
     except Exception as e:
@@ -48,15 +63,27 @@ async def post_alert(item: AlertModel):
 
 
 @router.get("/reports",
-            tags=["Reports"],
-            dependencies=[Depends(have_permission)])
+            tags=["Reports"])
 async def get_reports(device_id: int = Query(None),
-                      report_date: datetime = Query(None)):
+                      report_date: datetime = Query(None),
+                      user_details: dict = Depends(is_authenticated)):
     try:
+        user_device_id_list = get_user_device_id_list(
+            await UsersTableManager.get_user_devices(
+                user_details['id'],
+                await is_admin(user_details['id'])
+            )
+        )
         return JSONResponse(
             status_code=status.HTTP_200_OK,
             content=jsonable_encoder(
-                get_daily_report_list(await DailyReportsTableManager.read_reports(device_id, report_date))
+                get_daily_report_list(
+                    await DailyReportsTableManager.read_reports(
+                        device_id=device_id,
+                        report_date=report_date,
+                        device_id_list=user_device_id_list
+                    )
+                )
             )
         )
     except Exception as e:

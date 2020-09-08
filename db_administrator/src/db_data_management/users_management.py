@@ -1,4 +1,5 @@
 from sqlalchemy import and_, or_
+from sqlalchemy import select
 import datetime
 from fastapi import status
 from fastapi.encoders import jsonable_encoder
@@ -6,6 +7,9 @@ from fastapi.encoders import jsonable_encoder
 from settings import database, pwd_context
 from src.db_data_management.base_management import BaseManager
 from src.database_models.user import user
+from src.database_models.delegation import delegation
+from src.database_models.responsibility import responsibility
+from src.database_models.device_group import device_group
 from src.exceptions.definitions.CustomHTTPException import CustomHTTPException
 from src.validation_models.base_validation_model import InfoModel, BaseResponseModel
 
@@ -74,3 +78,15 @@ class UsersTableManager(BaseManager):
                     )
                 )
             )
+
+    @classmethod
+    async def get_user_devices(cls, user_id, is_admin):
+        join_condition = user \
+            .outerjoin(delegation, user.c.id == delegation.c.user_id) \
+            .outerjoin(responsibility, delegation.c.profile_id == responsibility.c.profile_id)\
+            .outerjoin(device_group, responsibility.c.group_id == device_group.c.group_id)
+        query = select([device_group.c.device_id.label('device_id')]) \
+            .select_from(join_condition).distinct()
+        if not is_admin:
+            query = query.where(user.c.id == user_id)
+        return await database.fetch_all(query)

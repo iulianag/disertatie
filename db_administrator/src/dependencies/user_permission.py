@@ -30,3 +30,13 @@ async def have_permission(authorization=Security(APIKeyHeader(name="Authorizatio
     return user_id
 
 
+async def is_admin(user_id):
+    profile_id = await ProfilesTableManager.get_profile_id_by_profilename('admin')
+    user_profiles = get_user_profile_id_list(
+        await DelegationsTableManager.read_delegations(user_id=user_id)
+    )
+    if (not profile_id) or (profile_id not in user_profiles):
+        return False
+    return True
+
+

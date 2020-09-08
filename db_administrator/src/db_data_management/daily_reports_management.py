@@ -8,7 +8,7 @@ from src.database_models.device_type import device_type
 
 class DailyReportsTableManager(object):
     @classmethod
-    async def read_reports(cls, device_id=None, report_date=None):
+    async def read_reports(cls, device_id=None, report_date=None, device_id_list=None):
         join_condition = daily_report\
             .join(device, daily_report.c.device_id == device.c.id)\
             .join(device_type, device.c.type_id == device_type.c.id)
@@ -18,6 +18,8 @@ class DailyReportsTableManager(object):
                         daily_report.c.report_date.label('report_date'),
                         device_type.c.unit.label('unit')])\
             .select_from(join_condition)
+        if device_id_list:
+            query = query.where(daily_report.c.device_id.in_(device_id_list))
         if device_id:
             query = query.where(daily_report.c.device_id == device_id)
         if report_date:

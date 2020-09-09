@@ -26,10 +26,12 @@ async def get_real_time_values(authorization=Security(APIKeyHeader(name="Authori
             f"{RPI_SERVER_URL}/sensors",
             headers={"Authorization": authorization}
         )
+        response_rpi_json = response_rpi.json()
+        response_db_json = response_db.json()
         return JSONResponse(
             status_code=status.HTTP_200_OK,
             content=jsonable_encoder(
-                get_sensors_values((response_rpi.json())['data'], (response_db.json())['data'])
+                get_sensors_values(response_rpi_json['data'], response_db_json['data'])
             )
         )
     except Exception as e:
@@ -38,7 +40,7 @@ async def get_real_time_values(authorization=Security(APIKeyHeader(name="Authori
 
 @router.get("/alerts",
             tags=["Reports"])
-async def get_alerts(device_id: int = Query(None),
+async def get_alerts(id: int = Query(None),
                      alert_date: datetime = Query(None),
                      authorization=Security(APIKeyHeader(name="Authorization", auto_error=False))):
     try:
@@ -46,7 +48,7 @@ async def get_alerts(device_id: int = Query(None),
             f"{DB_SERVER_URL}/alerts",
             headers={"Authorization": authorization},
             params={
-                'device_id': device_id,
+                'device_id': id,
                 'alert_date': alert_date
             }
         )

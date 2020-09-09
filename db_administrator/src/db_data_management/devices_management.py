@@ -10,8 +10,10 @@ from src.database_models.device_type import device_type
 
 class DevicesTableManager(BaseManager):
     @classmethod
-    async def read_all_records(cls, table, filter_query=None, type_name=None):
+    async def read_all_records(cls, table, filter_query=None, type_name=None, device_id_list=None):
         query = table.select()
+        if device_id_list:
+            query = query.where(table.c.id.in_(device_id_list))
         if filter_query:
             query = query.where(table.c.name.ilike(f'%{filter_query}%'))
         if type_name:

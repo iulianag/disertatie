@@ -9,7 +9,7 @@ from src.db_data_management.alerts_management import AlertsTableManager
 from src.db_data_management.daily_reports_management import DailyReportsTableManager
 from src.db_data_management.users_management import UsersTableManager
 from src.utils.reports_utils import (get_alert_list, get_daily_report_list)
-from src.utils.user_utils import  get_user_device_id_list
+from src.utils.user_utils import get_user_device_id_list
 from src.utils.base_utils import raise_exception
 from src.validation_models.report_model import AlertModel, ReportModel
 from src.validation_models.base_validation_model import BaseResponseModel, InfoModel

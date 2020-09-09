@@ -5,7 +5,7 @@ import requests
 
 from settings import DB_SERVER_URL
 from src.utils.base_utils import raise_exception
-from src.validation_models.group_model import BaseGroupIn, GroupIn
+from src.validation_models.group_model import BaseGroupIn, GroupIn, GroupDeviceIn
 from src.utils.group_utils import get_group_devices, get_group_profiles
 
 router = APIRouter()
@@ -104,6 +104,42 @@ async def put_group(id: int,
     try:
         response = requests.put(
             f"{DB_SERVER_URL}/groups/{id}",
+            headers={"Authorization": authorization},
+            json=item.dict()
+        )
+        return JSONResponse(
+            status_code=response.status_code,
+            content=response.json()
+        )
+    except Exception as e:
+        raise_exception(e)
+
+
+@router.delete("/devices/{device_id}/groups/{group_id}",
+               tags=["groups"])
+async def delete_group_device(device_id: int,
+                              group_id: int,
+                              authorization=Security(APIKeyHeader(name="Authorization", auto_error=False))):
+    try:
+        response = requests.delete(
+            f"{DB_SERVER_URL}/devices/{device_id}/groups/{group_id}",
+            headers={"Authorization": authorization}
+        )
+        return JSONResponse(
+            status_code=response.status_code,
+            content=response.json()
+        )
+    except Exception as e:
+        raise_exception(e)
+
+
+@router.post("/devices/groups",
+             tags=["groups"])
+async def post_group_device(item: GroupDeviceIn,
+                            authorization=Security(APIKeyHeader(name="Authorization", auto_error=False))):
+    try:
+        response = requests.post(
+            f"{DB_SERVER_URL}/devices/groups",
             headers={"Authorization": authorization},
             json=item.dict()
         )

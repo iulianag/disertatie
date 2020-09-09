@@ -20,6 +20,34 @@
 		<td><b>Description</b></td>
 		<td>{{ data_list['description'] }}</td>
 	  </tr>
+		<tr>
+		<td><b>Profiles</b></td>
+		<td>
+			<table id="groupDevices">
+				<tr>
+					<th><b>Id</b></th>
+					<th><b>Name</b></th>
+					<th></th>
+				</tr>
+				{% for device in data_list['devices'] %}
+				<tr>
+					<td>{{ device['device_id'] }}</td>
+					<td>{{ device['devicename'] }}</td>
+					<td>
+						<a href="#" onclick="sendDelete(event,'/groups/{{ data_list['id'] }}/devices/{{ device['device_id'] }}')">Delete</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+			<form action="/groups/devices" method="POST" class="associateItem" id="associateItem">
+				<div class="associateItem">
+					<input type="hidden" name="groupId" value="{{ data_list['id'] }}" required>
+					<input type="number" placeholder="Device id" name="deviceId" min="1" required>
+					<input type="submit" value="Add" onclick="sendPostForm(event, 'associateItem', '/groups/devices')">
+				</div>
+			</form>
+		</td>
+	  </tr>
 	</table>
 
 {% endblock %}

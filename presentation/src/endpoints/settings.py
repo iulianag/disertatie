@@ -30,7 +30,7 @@ async def get_settings(request: Request):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.put("/settings/{id}",
@@ -65,4 +65,4 @@ async def put_settings(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)

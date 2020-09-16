@@ -30,7 +30,7 @@ async def get_users(request: Request):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.post("/users",
@@ -65,7 +65,7 @@ async def post_users(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.get("/users/{id}",
@@ -89,7 +89,7 @@ async def get_user(request: Request, id: int):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.delete("/users/{id}",
@@ -115,7 +115,7 @@ async def delete_user(request: Request, id: int):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.put("/users/{id}",
@@ -149,7 +149,7 @@ async def put_users(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.post("/users/profiles",
@@ -181,7 +181,7 @@ async def post_user_profile(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.delete("/users/{userId}/profiles/{profileId}",
@@ -211,4 +211,4 @@ async def delete_user_profile(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)

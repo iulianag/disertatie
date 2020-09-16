@@ -30,7 +30,7 @@ async def real_time_values(request: Request):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.get("/alerts",
@@ -54,7 +54,7 @@ async def get_alerts(request: Request):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.get("/reports",
@@ -78,4 +78,4 @@ async def get_reports(request: Request):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)

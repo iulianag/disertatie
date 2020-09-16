@@ -24,7 +24,7 @@ async def index(request: Request):
         response = RedirectResponse('/home')
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.post("/",
@@ -56,7 +56,7 @@ async def login(request: Request,
                 status_code=response.status_code
             )
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.get("/home",
@@ -80,7 +80,7 @@ async def home(request: Request):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.get("/logout",
@@ -93,5 +93,5 @@ async def logout(request: Request):
         AuthorizationUser.logout_user(request.client.host)
         return RedirectResponse(url='/home')
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 

@@ -30,7 +30,7 @@ async def get_groups(request: Request):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.post("/groups",
@@ -61,7 +61,7 @@ async def post_groups(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.get("/groups/{id}",
@@ -85,7 +85,7 @@ async def get_group(request: Request, id: int):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.delete("/groups/{id}",
@@ -111,7 +111,7 @@ async def delete_group(request: Request, id: int):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.put("/groups/{id}",
@@ -143,7 +143,7 @@ async def put_group(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.post("/groups/devices",
@@ -177,7 +177,7 @@ async def post_group_device(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.delete("/groups/{groupId}/devices/{deviceId}",
@@ -207,4 +207,4 @@ async def delete_group_device(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)

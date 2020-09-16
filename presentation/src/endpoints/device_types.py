@@ -30,7 +30,7 @@ async def get_types(request: Request):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.post("/types",
@@ -63,7 +63,7 @@ async def post_types(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.get("/types/{id}",
@@ -87,7 +87,7 @@ async def get_type(request: Request, id: int):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.delete("/types/{id}",
@@ -113,7 +113,7 @@ async def delete_type(request: Request, id: int):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.put("/types/{id}",
@@ -147,4 +147,4 @@ async def put_users(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)

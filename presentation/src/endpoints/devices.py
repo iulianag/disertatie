@@ -30,7 +30,7 @@ async def get_devices(request: Request):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.post("/devices",
@@ -65,7 +65,7 @@ async def post_devices(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.get("/devices/{id}",
@@ -89,7 +89,7 @@ async def get_device(request: Request, id: int):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.delete("/devices/{id}",
@@ -115,7 +115,7 @@ async def delete_device(request: Request, id: int):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.put("/devices/{id}",
@@ -150,4 +150,4 @@ async def put_settings(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)

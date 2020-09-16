@@ -30,7 +30,7 @@ async def get_profiles(request: Request):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.post("/profiles",
@@ -61,7 +61,7 @@ async def post_profiles(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.get("/profiles/{id}",
@@ -85,7 +85,7 @@ async def get_profile(request: Request, id: int):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.delete("/profiles/{id}",
@@ -111,7 +111,7 @@ async def delete_profile(request: Request, id: int):
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.put("/profiles/{id}",
@@ -143,7 +143,7 @@ async def put_profile(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.post("/profiles/groups",
@@ -177,7 +177,7 @@ async def post_profiles(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
 
 
 @router.delete("/profiles/{profileId}/groups/{groupId}",
@@ -207,4 +207,4 @@ async def delete_profile_group(request: Request,
         )
         return response
     except Exception as e:
-        raise_exception(e)
+        return raise_exception(e, request)
